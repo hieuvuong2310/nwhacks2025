@@ -2,6 +2,7 @@ import React from 'react';
 import ComputerPage from '../computer/page';
 export default function BackgroundAttacker() {
     return (
+<<<<<<< HEAD
         <div className="bg-gray-700 h-screen w-screen overflow-hidden">
             <div className="absolute inset-0 z-10 flex items-center justify-center">
                 <ComputerPage />
@@ -27,6 +28,15 @@ export default function BackgroundAttacker() {
                 </div>
             </div>
             <div className="mt-60 h-2/3 bg-blackbean"></div>
+=======
+        <div className="h-screen flex flex-col">
+            <div className="h-screen w-screen flex flex-col m-0 overflow-hidden">
+                <div className="flex-1 bg-gray-700 flex items-center justify-between px-16">
+                    <ComputerPage />
+                </div>
+                <div className="h-1/3 bg-blackbean"></div>
+            </div>
+>>>>>>> cbe422a (new attacker/defender pages)
         </div>
     );
 }

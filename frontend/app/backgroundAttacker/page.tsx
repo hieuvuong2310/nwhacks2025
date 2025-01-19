@@ -7,9 +7,7 @@ export default function BackgroundAttacker() {
             <div className="flex-1 bg-gray-700 flex items-center justify-between px-16">
             <ComputerPage />
             </div>
-            <div className="h-1/3 bg-blackbean"></div>
-        </div>
-           
+              <div className="h-1/3 bg-blackbean"></div>
         </div>
     );
 }

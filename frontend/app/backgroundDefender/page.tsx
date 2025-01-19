@@ -25,8 +25,7 @@ export default function BackgroundDefender() {
                     </div>
                 </div>
             </div>
+            <div className="h-2/3 bg-lightbrown"></div>
         </div>
-        <div className="h-2/3 bg-lightbrown"></div>
-    </div>
     );
 }

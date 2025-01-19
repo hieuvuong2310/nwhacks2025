@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: var(--font-jersey);
 }
 
 @layer utilities {
@@ -38,6 +39,11 @@ body {
         --chart-3: 197 37% 24%;
         --chart-4: 43 74% 66%;
         --chart-5: 27 87% 67%;
+        --custom-red-dark: 0 100% 24%;
+        --custom-red: 356 82% 41%;
+        --custom-cream: 39 92% 91%;
+        --custom-navy: 201 100% 14%;
+        --custom-blue: 206 45% 57%;
         --radius: 0.5rem;
     }
     .dark {
@@ -65,6 +71,11 @@ body {
         --chart-3: 30 80% 55%;
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
+        --custom-red-dark: 0 100% 24%;
+        --custom-red: 356 82% 41%;
+        --custom-cream: 39 92% 91%;
+        --custom-navy: 201 100% 14%;
+        --custom-blue: 206 45% 57%;
     }
 }
 

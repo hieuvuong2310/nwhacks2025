@@ -28,6 +28,7 @@ export default function Defender() {
         attackerHealth,
         defenderHealth,
         setAttackerHealth,
+        defenderHealth,
         attackerMoney
     } = useGame();
 
@@ -87,6 +88,34 @@ export default function Defender() {
     };
 
     const handleSubmit = () => {
+        // Calculate the gameScore = attackerHealth - defenderHealth
+        const gameScore = attackerHealth - defenderHealth;
+
+        // 1) If attackerMoney <= 0 => Defenders win
+        if (attackerMoney <= 0) {
+            router.push('/end?winner=defender');
+            return;
+        }
+
+        // 2) If defenderMoney <= 0 => Attackers win
+        if (defenderMoney <= 0) {
+            router.push('/end?winner=attacker');
+            return;
+        }
+
+        // 3) If gameScore > 60 => Attackers are far ahead => Attackers win
+        if (gameScore > 60) {
+            router.push('/end?winner=attacker');
+            return;
+        }
+
+        // 4) If gameScore < -60 => Defenders are far ahead => Defenders win
+        if (gameScore < -60) {
+            router.push('/end?winner=defender');
+            return;
+        }
+
+        // == If no condition is met, go to the next turn as usual ==
         setShowPopup(true);
         setTimeout(() => {
             router.push('/attacker');

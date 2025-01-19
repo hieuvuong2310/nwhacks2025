@@ -20,6 +20,7 @@ import { useRouter } from 'next/navigation';
 import Dial from '../../components/Dial'
 
 export default function Defender() {
+
     const {
         defenderMoney,
         defenderMoves,
@@ -28,6 +29,7 @@ export default function Defender() {
         setAttackerHealth,
         attackerMoney
     } = useGame();
+
     const [showPopup, setShowPopup] = useState(false);
     const [selectedMoves, setSelectedMoves] = useState<
         Array<{
@@ -99,6 +101,7 @@ export default function Defender() {
     else {
         winner = "equal";
     }
+      
     return (
         <div>
             <div className="bg-gray-700 h-screen w-screen overflow-hidden">

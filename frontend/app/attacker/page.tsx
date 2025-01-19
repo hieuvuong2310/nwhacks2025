@@ -23,6 +23,7 @@ export default function Attacker() {
         attackerMoney,
         attackerMoves,
         setAttackerMoney,
+        attackerHealth,
         setDefenderHealth,
         defenderHealth,
     } = useGame();
@@ -78,6 +79,28 @@ export default function Attacker() {
 
             // Reduce defender's health
             setDefenderHealth(defenderHealth - selectedMove.power);
+
+            const newAttackerMoney = attackerMoney - selectedMove.cost;
+            const newDefenderHealth = defenderHealth - selectedMove.power;
+            const healthDifference = attackerHealth - newDefenderHealth;
+
+            if (newAttackerMoney <= 0) {
+                // Defenders win
+                router.push('/end?winner=defender');
+                return;
+            }
+  
+            if (healthDifference > 60) {
+                // Attackers have 60+ more health than defenders
+                router.push('/end?winner=attacker');
+                return;
+            }
+
+            if ((defenderHealth - attackerHealth) > 60) {
+                // Defenders have 60+ more health than attackers
+                router.push('/end?winner=defender');
+                return;
+            }
 
             // Transition to defender's turn
             handleSubmit();

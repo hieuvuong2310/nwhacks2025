@@ -23,6 +23,8 @@ interface GameContextType {
     attackerMoves: typeof attackerMoves;
 }
 
+
+
 interface MoveEntry {
     role: PlayerRole;
     move: string;
@@ -32,7 +34,7 @@ interface MoveEntry {
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
-const defenderMoves = [
+const attackerMoves = [
     {
         id: 1,
         name: 'SQL Injection',
@@ -124,7 +126,7 @@ const defenderMoves = [
     },
 ];
 
-const attackerMoves = [
+const defenderMoves = [
     {
         id: 10,
         name: 'Implement an Intrusion Detection System',

@@ -19,11 +19,32 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Defender() {
-    const { defenderMoney, defenderMoves } = useGame();
+    const {
+        defenderMoney,
+        defenderMoves,
+        setDefenderMoney,
+        attackerHealth,
+        setAttackerHealth,
+    } = useGame();
     const [showPopup, setShowPopup] = useState(false);
     const [selectedMoves, setSelectedMoves] = useState<
-        Array<{ name: string; id: number; cost: number; type: string }>
+        Array<{
+            name: string;
+            id: number;
+            cost: number;
+            type: string;
+            description: string;
+            power: number;
+        }>
     >([]);
+    const [selectedMove, setSelectedMove] = useState<{
+        name: string;
+        id: number;
+        cost: number;
+        type: string;
+        description: string;
+        power: number;
+    } | null>(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -39,12 +60,26 @@ export default function Defender() {
                 id: moves[randomIndex].id,
                 cost: moves[randomIndex].cost,
                 type: moves[randomIndex].type,
+                description: moves[randomIndex].description,
+                power: moves[randomIndex].power,
             });
             moves.splice(randomIndex, 1);
         }
 
         setSelectedMoves(selected);
     }, [defenderMoves]);
+
+    const handleMoveSelect = (move: typeof selectedMove) => {
+        if (!move) return;
+
+        if (defenderMoney >= move.cost) {
+            setSelectedMove(move);
+            setDefenderMoney(defenderMoney - move.cost);
+            setAttackerHealth(attackerHealth - move.power);
+        } else {
+            alert('Not enough money for this move!');
+        }
+    };
 
     const handleSubmit = () => {
         setShowPopup(true);
@@ -87,7 +122,23 @@ export default function Defender() {
                                     <HoverCard>
                                         <HoverCardTrigger>
                                             <Button
-                                                className={`bg-custom-navy flex-1`}
+                                                className={`bg-custom-navy flex-1 ${
+                                                    selectedMove?.id ===
+                                                    selectedMoves[0]?.id
+                                                        ? 'ring-2 ring-white'
+                                                        : ''
+                                                }`}
+                                                onClick={() =>
+                                                    handleMoveSelect(
+                                                        selectedMoves[0]
+                                                    )
+                                                }
+                                                disabled={
+                                                    selectedMove !== null ||
+                                                    defenderMoney <
+                                                        (selectedMoves[0]
+                                                            ?.cost || 0)
+                                                }
                                             >
                                                 {selectedMoves[0]?.name ||
                                                     'Loading...'}
@@ -105,6 +156,11 @@ export default function Defender() {
                                                     {selectedMoves[0]?.type ||
                                                         'Loading...'}
                                                 </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[0]
+                                                        ?.description ||
+                                                        'Loading...'}
+                                                </p>
                                             </div>
                                         </HoverCardContent>
                                     </HoverCard>
@@ -112,7 +168,23 @@ export default function Defender() {
                                     <HoverCard>
                                         <HoverCardTrigger>
                                             <Button
-                                                className={`bg-custom-navy flex-1`}
+                                                className={`bg-custom-navy flex-1 ${
+                                                    selectedMove?.id ===
+                                                    selectedMoves[1]?.id
+                                                        ? 'ring-2 ring-white'
+                                                        : ''
+                                                }`}
+                                                onClick={() =>
+                                                    handleMoveSelect(
+                                                        selectedMoves[1]
+                                                    )
+                                                }
+                                                disabled={
+                                                    selectedMove !== null ||
+                                                    defenderMoney <
+                                                        (selectedMoves[1]
+                                                            ?.cost || 0)
+                                                }
                                             >
                                                 {selectedMoves[1]?.name ||
                                                     'Loading...'}
@@ -130,6 +202,11 @@ export default function Defender() {
                                                     {selectedMoves[1]?.type ||
                                                         'Loading...'}
                                                 </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[1]
+                                                        ?.description ||
+                                                        'Loading...'}
+                                                </p>
                                             </div>
                                         </HoverCardContent>
                                     </HoverCard>
@@ -138,7 +215,23 @@ export default function Defender() {
                                     <HoverCard>
                                         <HoverCardTrigger>
                                             <Button
-                                                className={`bg-custom-navy flex-1`}
+                                                className={`bg-custom-navy flex-1 ${
+                                                    selectedMove?.id ===
+                                                    selectedMoves[2]?.id
+                                                        ? 'ring-2 ring-white'
+                                                        : ''
+                                                }`}
+                                                onClick={() =>
+                                                    handleMoveSelect(
+                                                        selectedMoves[2]
+                                                    )
+                                                }
+                                                disabled={
+                                                    selectedMove !== null ||
+                                                    defenderMoney <
+                                                        (selectedMoves[2]
+                                                            ?.cost || 0)
+                                                }
                                             >
                                                 {selectedMoves[2]?.name ||
                                                     'Loading...'}
@@ -156,13 +249,34 @@ export default function Defender() {
                                                     {selectedMoves[2]?.type ||
                                                         'Loading...'}
                                                 </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[2]
+                                                        ?.description ||
+                                                        'Loading...'}
+                                                </p>
                                             </div>
                                         </HoverCardContent>
                                     </HoverCard>
                                     <HoverCard>
                                         <HoverCardTrigger>
                                             <Button
-                                                className={`bg-custom-navy flex-1`}
+                                                className={`bg-custom-navy flex-1 ${
+                                                    selectedMove?.id ===
+                                                    selectedMoves[3]?.id
+                                                        ? 'ring-2 ring-white'
+                                                        : ''
+                                                }`}
+                                                onClick={() =>
+                                                    handleMoveSelect(
+                                                        selectedMoves[3]
+                                                    )
+                                                }
+                                                disabled={
+                                                    selectedMove !== null ||
+                                                    defenderMoney <
+                                                        (selectedMoves[3]
+                                                            ?.cost || 0)
+                                                }
                                             >
                                                 {selectedMoves[3]?.name ||
                                                     'Loading...'}
@@ -180,6 +294,11 @@ export default function Defender() {
                                                     {selectedMoves[3]?.type ||
                                                         'Loading...'}
                                                 </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[3]
+                                                        ?.description ||
+                                                        'Loading...'}
+                                                </p>
                                             </div>
                                         </HoverCardContent>
                                     </HoverCard>
@@ -190,6 +309,7 @@ export default function Defender() {
                             <Button
                                 className={`bg-custom-navy`}
                                 onClick={handleSubmit}
+                                disabled={!selectedMove}
                             >
                                 Submit
                             </Button>

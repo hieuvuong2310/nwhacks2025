@@ -11,6 +11,17 @@ interface GameContextType {
     setAttackerMoney: (money: number) => void;
     defenderMoney: number;
     setDefenderMoney: (money: number) => void;
+    moveHistory: MoveEntry[];
+    setMoveHistory: (history: MoveEntry[]) => void;
+    powerHistory: number[];
+    setPowerHistory: (history: number[]) => void;
+}
+
+interface MoveEntry {
+    role: PlayerRole;
+    move: string;
+    turn: number;
+    effect: number;
 }
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
@@ -19,6 +30,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
     const [playerRole, setPlayerRole] = useState<PlayerRole>('defender');
     const [attackerMoney, setAttackerMoney] = useState(50);
     const [defenderMoney, setDefenderMoney] = useState(80);
+    const [moveHistory, setMoveHistory] = useState<MoveEntry[]>([]);
+    const [powerHistory, setPowerHistory] = useState<number[]>([]);
 
     return (
         <GameContext.Provider
@@ -29,6 +42,10 @@ export function GameProvider({ children }: { children: ReactNode }) {
                 setAttackerMoney,
                 defenderMoney,
                 setDefenderMoney,
+                moveHistory,
+                setMoveHistory,
+                powerHistory,
+                setPowerHistory,
             }}
         >
             {children}

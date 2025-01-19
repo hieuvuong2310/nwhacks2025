@@ -1,10 +1,11 @@
 import React from 'react';
-import ComputerPage from '../computer/page';
+import Computer from '@/components/Computer';
+
 export default function BackgroundAttacker() {
     return (
         <div className="bg-gray-700 h-screen w-screen overflow-hidden">
             <div className="absolute inset-0 z-10 flex items-center justify-center">
-                <ComputerPage />
+                <Computer />
             </div>
             <div className="flex-1 flex items-center justify-between">
                 <div className="flex flex-row m-0 overflow-hidden">

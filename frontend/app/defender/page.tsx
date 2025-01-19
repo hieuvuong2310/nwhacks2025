@@ -6,21 +6,49 @@ import {
     CardHeader,
     CardFooter,
 } from '@/components/ui/card';
+import {
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+} from '@/components/ui/hover-card';
 import { Button } from '@/components/ui/button';
 import { TypographyH3 } from '@/components/typography/typography';
 import { useGame } from '@/contexts/GameContext';
 import Computer from '@/components/Computer';
-import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Dial from '../../components/Dial'
 
 export default function Defender() {
-    const { defenderMoney, defenderMoves, attackerMoney } = useGame();
+
+    const {
+        defenderMoney,
+        defenderMoves,
+        setDefenderMoney,
+        attackerHealth,
+        setAttackerHealth,
+        attackerMoney
+    } = useGame();
+
     const [showPopup, setShowPopup] = useState(false);
     const [selectedMoves, setSelectedMoves] = useState<
-        Array<{ name: string; id: number }>
+        Array<{
+            name: string;
+            id: number;
+            cost: number;
+            type: string;
+            description: string;
+            power: number;
+        }>
     >([]);
+    const [selectedMove, setSelectedMove] = useState<{
+        name: string;
+        id: number;
+        cost: number;
+        type: string;
+        description: string;
+        power: number;
+    } | null>(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -34,12 +62,28 @@ export default function Defender() {
             selected.push({
                 name: moves[randomIndex].name,
                 id: moves[randomIndex].id,
+                cost: moves[randomIndex].cost,
+                type: moves[randomIndex].type,
+                description: moves[randomIndex].description,
+                power: moves[randomIndex].power,
             });
             moves.splice(randomIndex, 1);
         }
 
         setSelectedMoves(selected);
     }, [defenderMoves]);
+
+    const handleMoveSelect = (move: typeof selectedMove) => {
+        if (!move) return;
+
+        if (defenderMoney >= move.cost) {
+            setSelectedMove(move);
+            setDefenderMoney(defenderMoney - move.cost);
+            setAttackerHealth(attackerHealth - move.power);
+        } else {
+            alert('Not enough money for this move!');
+        }
+    };
 
     const handleSubmit = () => {
         setShowPopup(true);
@@ -57,7 +101,7 @@ export default function Defender() {
     else {
         winner = "equal";
     }
-
+      
     return (
         <div>
             <div className="bg-gray-700 h-screen w-screen overflow-hidden">
@@ -92,20 +136,189 @@ export default function Defender() {
                         <CardContent>
                             <div className="flex flex-col gap-2 w-full">
                                 <div className="flex w-full gap-2">
-                                    <Button className={`bg-custom-navy flex-1`}>
-                                        {selectedMoves[0]?.name || 'Loading...'}
-                                    </Button>
-                                    <Button className={`bg-custom-navy flex-1`}>
-                                        {selectedMoves[1]?.name || 'Loading...'}
-                                    </Button>
+                                    <HoverCard>
+                                        <HoverCardTrigger>
+                                            <Button
+                                                className={`bg-custom-navy flex-1 ${
+                                                    selectedMove?.id ===
+                                                    selectedMoves[0]?.id
+                                                        ? 'ring-2 ring-white'
+                                                        : ''
+                                                }`}
+                                                onClick={() =>
+                                                    handleMoveSelect(
+                                                        selectedMoves[0]
+                                                    )
+                                                }
+                                                disabled={
+                                                    selectedMove !== null ||
+                                                    defenderMoney <
+                                                        (selectedMoves[0]
+                                                            ?.cost || 0)
+                                                }
+                                            >
+                                                {selectedMoves[0]?.name ||
+                                                    'Loading...'}
+                                            </Button>
+                                        </HoverCardTrigger>
+                                        <HoverCardContent>
+                                            <div className="flex flex-col gap-1">
+                                                <p>
+                                                    Cost: $
+                                                    {selectedMoves[0]?.cost ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p>
+                                                    Type:{' '}
+                                                    {selectedMoves[0]?.type ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[0]
+                                                        ?.description ||
+                                                        'Loading...'}
+                                                </p>
+                                            </div>
+                                        </HoverCardContent>
+                                    </HoverCard>
+
+                                    <HoverCard>
+                                        <HoverCardTrigger>
+                                            <Button
+                                                className={`bg-custom-navy flex-1 ${
+                                                    selectedMove?.id ===
+                                                    selectedMoves[1]?.id
+                                                        ? 'ring-2 ring-white'
+                                                        : ''
+                                                }`}
+                                                onClick={() =>
+                                                    handleMoveSelect(
+                                                        selectedMoves[1]
+                                                    )
+                                                }
+                                                disabled={
+                                                    selectedMove !== null ||
+                                                    defenderMoney <
+                                                        (selectedMoves[1]
+                                                            ?.cost || 0)
+                                                }
+                                            >
+                                                {selectedMoves[1]?.name ||
+                                                    'Loading...'}
+                                            </Button>
+                                        </HoverCardTrigger>
+                                        <HoverCardContent>
+                                            <div className="flex flex-col gap-1">
+                                                <p>
+                                                    Cost: $
+                                                    {selectedMoves[1]?.cost ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p>
+                                                    Type:{' '}
+                                                    {selectedMoves[1]?.type ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[1]
+                                                        ?.description ||
+                                                        'Loading...'}
+                                                </p>
+                                            </div>
+                                        </HoverCardContent>
+                                    </HoverCard>
                                 </div>
                                 <div className="flex w-full gap-2">
-                                    <Button className={`bg-custom-navy flex-1`}>
-                                        {selectedMoves[2]?.name || 'Loading...'}
-                                    </Button>
-                                    <Button className={`bg-custom-navy flex-1`}>
-                                        {selectedMoves[3]?.name || 'Loading...'}
-                                    </Button>
+                                    <HoverCard>
+                                        <HoverCardTrigger>
+                                            <Button
+                                                className={`bg-custom-navy flex-1 ${
+                                                    selectedMove?.id ===
+                                                    selectedMoves[2]?.id
+                                                        ? 'ring-2 ring-white'
+                                                        : ''
+                                                }`}
+                                                onClick={() =>
+                                                    handleMoveSelect(
+                                                        selectedMoves[2]
+                                                    )
+                                                }
+                                                disabled={
+                                                    selectedMove !== null ||
+                                                    defenderMoney <
+                                                        (selectedMoves[2]
+                                                            ?.cost || 0)
+                                                }
+                                            >
+                                                {selectedMoves[2]?.name ||
+                                                    'Loading...'}
+                                            </Button>
+                                        </HoverCardTrigger>
+                                        <HoverCardContent>
+                                            <div className="flex flex-col gap-1">
+                                                <p>
+                                                    Cost: $
+                                                    {selectedMoves[2]?.cost ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p>
+                                                    Type:{' '}
+                                                    {selectedMoves[2]?.type ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[2]
+                                                        ?.description ||
+                                                        'Loading...'}
+                                                </p>
+                                            </div>
+                                        </HoverCardContent>
+                                    </HoverCard>
+                                    <HoverCard>
+                                        <HoverCardTrigger>
+                                            <Button
+                                                className={`bg-custom-navy flex-1 ${
+                                                    selectedMove?.id ===
+                                                    selectedMoves[3]?.id
+                                                        ? 'ring-2 ring-white'
+                                                        : ''
+                                                }`}
+                                                onClick={() =>
+                                                    handleMoveSelect(
+                                                        selectedMoves[3]
+                                                    )
+                                                }
+                                                disabled={
+                                                    selectedMove !== null ||
+                                                    defenderMoney <
+                                                        (selectedMoves[3]
+                                                            ?.cost || 0)
+                                                }
+                                            >
+                                                {selectedMoves[3]?.name ||
+                                                    'Loading...'}
+                                            </Button>
+                                        </HoverCardTrigger>
+                                        <HoverCardContent>
+                                            <div className="flex flex-col gap-1">
+                                                <p>
+                                                    Cost: $
+                                                    {selectedMoves[3]?.cost ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p>
+                                                    Type:{' '}
+                                                    {selectedMoves[3]?.type ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[3]
+                                                        ?.description ||
+                                                        'Loading...'}
+                                                </p>
+                                            </div>
+                                        </HoverCardContent>
+                                    </HoverCard>
                                 </div>
                             </div>
                         </CardContent>
@@ -113,6 +326,7 @@ export default function Defender() {
                             <Button
                                 className={`bg-custom-navy`}
                                 onClick={handleSubmit}
+                                disabled={!selectedMove}
                             >
                                 Submit
                             </Button>

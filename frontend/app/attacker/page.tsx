@@ -19,10 +19,23 @@ import {
 } from '@/components/ui/hover-card';
 
 export default function Attacker() {
-    const { attackerMoney, attackerMoves } = useGame();
+    const {
+        attackerMoney,
+        attackerMoves,
+        setAttackerMoney,
+        setDefenderHealth,
+        defenderHealth,
+    } = useGame();
     const [showPopup, setShowPopup] = useState(false);
     const [selectedMoves, setSelectedMoves] = useState<
-        Array<{ name: string; id: number; cost: number; type: string }>
+        Array<{
+            name: string;
+            id: number;
+            cost: number;
+            type: string;
+            description: string;
+            power: number;
+        }>
     >([]);
     const router = useRouter();
 
@@ -39,6 +52,8 @@ export default function Attacker() {
                 id: moves[randomIndex].id,
                 cost: moves[randomIndex].cost,
                 type: moves[randomIndex].type,
+                description: moves[randomIndex].description,
+                power: moves[randomIndex].power,
             });
             moves.splice(randomIndex, 1);
         }
@@ -51,6 +66,25 @@ export default function Attacker() {
         setTimeout(() => {
             router.push('/defender');
         }, 3000);
+    };
+
+    const handleAttack = (moveIndex: number) => {
+        const selectedMove = selectedMoves[moveIndex];
+
+        // Check if player has enough money
+        if (attackerMoney >= selectedMove.cost) {
+            // Reduce attacker's money
+            setAttackerMoney(attackerMoney - selectedMove.cost);
+
+            // Reduce defender's health
+            setDefenderHealth(defenderHealth - selectedMove.power);
+
+            // Transition to defender's turn
+            handleSubmit();
+        } else {
+            // Optionally show an error message that they can't afford the move
+            alert('Not enough money for this move!');
+        }
     };
 
     return (
@@ -88,6 +122,12 @@ export default function Attacker() {
                                         <HoverCardTrigger>
                                             <Button
                                                 className={`bg-custom-red flex-1`}
+                                                onClick={() => handleAttack(0)}
+                                                disabled={
+                                                    attackerMoney <
+                                                    (selectedMoves[0]?.cost ||
+                                                        0)
+                                                }
                                             >
                                                 {selectedMoves[0]?.name ||
                                                     'Loading...'}
@@ -105,6 +145,11 @@ export default function Attacker() {
                                                     {selectedMoves[0]?.type ||
                                                         'Loading...'}
                                                 </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[0]
+                                                        ?.description ||
+                                                        'Loading...'}
+                                                </p>
                                             </div>
                                         </HoverCardContent>
                                     </HoverCard>
@@ -113,6 +158,12 @@ export default function Attacker() {
                                         <HoverCardTrigger>
                                             <Button
                                                 className={`bg-custom-red flex-1`}
+                                                onClick={() => handleAttack(1)}
+                                                disabled={
+                                                    attackerMoney <
+                                                    (selectedMoves[1]?.cost ||
+                                                        0)
+                                                }
                                             >
                                                 {selectedMoves[1]?.name ||
                                                     'Loading...'}
@@ -130,6 +181,11 @@ export default function Attacker() {
                                                     {selectedMoves[1]?.type ||
                                                         'Loading...'}
                                                 </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[1]
+                                                        ?.description ||
+                                                        'Loading...'}
+                                                </p>
                                             </div>
                                         </HoverCardContent>
                                     </HoverCard>
@@ -139,6 +195,12 @@ export default function Attacker() {
                                         <HoverCardTrigger>
                                             <Button
                                                 className={`bg-custom-red flex-1`}
+                                                onClick={() => handleAttack(2)}
+                                                disabled={
+                                                    attackerMoney <
+                                                    (selectedMoves[2]?.cost ||
+                                                        0)
+                                                }
                                             >
                                                 {selectedMoves[2]?.name ||
                                                     'Loading...'}
@@ -156,6 +218,11 @@ export default function Attacker() {
                                                     {selectedMoves[2]?.type ||
                                                         'Loading...'}
                                                 </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[2]
+                                                        ?.description ||
+                                                        'Loading...'}
+                                                </p>
                                             </div>
                                         </HoverCardContent>
                                     </HoverCard>
@@ -163,6 +230,12 @@ export default function Attacker() {
                                         <HoverCardTrigger>
                                             <Button
                                                 className={`bg-custom-red flex-1`}
+                                                onClick={() => handleAttack(3)}
+                                                disabled={
+                                                    attackerMoney <
+                                                    (selectedMoves[3]?.cost ||
+                                                        0)
+                                                }
                                             >
                                                 {selectedMoves[3]?.name ||
                                                     'Loading...'}
@@ -178,6 +251,11 @@ export default function Attacker() {
                                                 <p>
                                                     Type:{' '}
                                                     {selectedMoves[3]?.type ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p className="mt-2 text-sm text-muted-foreground">
+                                                    {selectedMoves[3]
+                                                        ?.description ||
                                                         'Loading...'}
                                                 </p>
                                             </div>

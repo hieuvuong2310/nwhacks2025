@@ -8,7 +8,7 @@ export default function Home() {
         <div>
             <TypographyH1>Get started</TypographyH1>
             <div className="flex flex-col gap-4 mt-4">
-                <Link href="/create" className="w-full">
+                <Link href="/attacker" className="w-full">
                     <Button className="bg-custom-red w-full py-6 text-lg">
                         Start Game
                     </Button>

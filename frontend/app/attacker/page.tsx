@@ -12,12 +12,17 @@ import { useGame } from '@/contexts/GameContext';
 import Computer from '@/components/Computer';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import {
+    HoverCard,
+    HoverCardTrigger,
+    HoverCardContent,
+} from '@/components/ui/hover-card';
 
 export default function Attacker() {
     const { attackerMoney, attackerMoves } = useGame();
     const [showPopup, setShowPopup] = useState(false);
     const [selectedMoves, setSelectedMoves] = useState<
-        Array<{ name: string; id: number }>
+        Array<{ name: string; id: number; cost: number; type: string }>
     >([]);
     const router = useRouter();
 
@@ -32,6 +37,8 @@ export default function Attacker() {
             selected.push({
                 name: moves[randomIndex].name,
                 id: moves[randomIndex].id,
+                cost: moves[randomIndex].cost,
+                type: moves[randomIndex].type,
             });
             moves.splice(randomIndex, 1);
         }
@@ -77,20 +84,105 @@ export default function Attacker() {
                         <CardContent>
                             <div className="flex flex-col gap-2 w-full">
                                 <div className="flex w-full gap-2">
-                                    <Button className={`bg-custom-red flex-1`}>
-                                        {selectedMoves[0]?.name || 'Loading...'}
-                                    </Button>
-                                    <Button className={`bg-custom-red flex-1`}>
-                                        {selectedMoves[1]?.name || 'Loading...'}
-                                    </Button>
+                                    <HoverCard>
+                                        <HoverCardTrigger>
+                                            <Button
+                                                className={`bg-custom-red flex-1`}
+                                            >
+                                                {selectedMoves[0]?.name ||
+                                                    'Loading...'}
+                                            </Button>
+                                        </HoverCardTrigger>
+                                        <HoverCardContent>
+                                            <div className="flex flex-col gap-1">
+                                                <p>
+                                                    Cost: $
+                                                    {selectedMoves[0]?.cost ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p>
+                                                    Type:{' '}
+                                                    {selectedMoves[0]?.type ||
+                                                        'Loading...'}
+                                                </p>
+                                            </div>
+                                        </HoverCardContent>
+                                    </HoverCard>
+
+                                    <HoverCard>
+                                        <HoverCardTrigger>
+                                            <Button
+                                                className={`bg-custom-red flex-1`}
+                                            >
+                                                {selectedMoves[1]?.name ||
+                                                    'Loading...'}
+                                            </Button>
+                                        </HoverCardTrigger>
+                                        <HoverCardContent>
+                                            <div className="flex flex-col gap-1">
+                                                <p>
+                                                    Cost: $
+                                                    {selectedMoves[1]?.cost ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p>
+                                                    Type:{' '}
+                                                    {selectedMoves[1]?.type ||
+                                                        'Loading...'}
+                                                </p>
+                                            </div>
+                                        </HoverCardContent>
+                                    </HoverCard>
                                 </div>
                                 <div className="flex w-full gap-2">
-                                    <Button className={`bg-custom-red flex-1`}>
-                                        {selectedMoves[2]?.name || 'Loading...'}
-                                    </Button>
-                                    <Button className={`bg-custom-red flex-1`}>
-                                        {selectedMoves[3]?.name || 'Loading...'}
-                                    </Button>
+                                    <HoverCard>
+                                        <HoverCardTrigger>
+                                            <Button
+                                                className={`bg-custom-red flex-1`}
+                                            >
+                                                {selectedMoves[2]?.name ||
+                                                    'Loading...'}
+                                            </Button>
+                                        </HoverCardTrigger>
+                                        <HoverCardContent>
+                                            <div className="flex flex-col gap-1">
+                                                <p>
+                                                    Cost: $
+                                                    {selectedMoves[2]?.cost ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p>
+                                                    Type:{' '}
+                                                    {selectedMoves[2]?.type ||
+                                                        'Loading...'}
+                                                </p>
+                                            </div>
+                                        </HoverCardContent>
+                                    </HoverCard>
+                                    <HoverCard>
+                                        <HoverCardTrigger>
+                                            <Button
+                                                className={`bg-custom-red flex-1`}
+                                            >
+                                                {selectedMoves[3]?.name ||
+                                                    'Loading...'}
+                                            </Button>
+                                        </HoverCardTrigger>
+                                        <HoverCardContent>
+                                            <div className="flex flex-col gap-1">
+                                                <p>
+                                                    Cost: $
+                                                    {selectedMoves[3]?.cost ||
+                                                        'Loading...'}
+                                                </p>
+                                                <p>
+                                                    Type:{' '}
+                                                    {selectedMoves[3]?.type ||
+                                                        'Loading...'}
+                                                </p>
+                                            </div>
+                                        </HoverCardContent>
+                                    </HoverCard>
                                 </div>
                             </div>
                         </CardContent>

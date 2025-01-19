@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
+import { GameProvider } from '@/contexts/GameContext';
 
 const jersey = localFont({
     src: '../public/fonts/Jersey10-Regular.ttf',
@@ -20,9 +21,11 @@ export default function RootLayout({
     return (
         <html lang="en" className={`${jersey.variable} font-jersey`}>
             <body className="min-h-screen flex items-center justify-center">
-                <main className="w-[70%] flex flex-col items-center justify-center gap-4 p-4">
-                    {children}
-                </main>
+                <GameProvider>
+                    <main className="w-[70%] flex flex-col items-center justify-center gap-4 p-4">
+                        {children}
+                    </main>
+                </GameProvider>
             </body>
         </html>
     );

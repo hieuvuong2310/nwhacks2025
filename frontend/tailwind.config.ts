@@ -16,9 +16,9 @@ const config: Config = {
 				cream: 'hsl(var(--custom-cream))',
 				navy: 'hsl(var(--custom-navy))',
 				blue: 'hsl(var(--custom-blue))',
-				lightbrown: '#9F8170',
-				blackbean: '#3D0C02',
 			},
+			lightbrown: '#9F8170',
+			blackbean: '#3D0C02',
 			
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

@@ -1,0 +1,14 @@
+{
+    "defender": {
+        "url": "https://firebasestorage.googleapis.com/v0/b/personal-web-4022f.firebasestorage.app/o/Defender.png?alt=media&token=3235eb17-ab06-4787-b188-da81fe20178c"
+
+    }, 
+    "attacker": {
+        "url": "https://firebasestorage.googleapis.com/v0/b/personal-web-4022f.firebasestorage.app/o/Attacker.png?alt=media&token=3ffa164c-fd1c-4ff4-8737-b9217566e4bb"
+    },
+    "equal": {
+        "url": "https://firebasestorage.googleapis.com/v0/b/personal-web-4022f.firebasestorage.app/o/equal.png?alt=media&token=e02c5ac2-a3b8-46e0-84d6-6a3fd2e8e031"
+    }
+
+}
+

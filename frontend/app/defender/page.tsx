@@ -17,15 +17,19 @@ import { useGame } from '@/contexts/GameContext';
 import Computer from '@/components/Computer';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Dial from '../../components/Dial'
 
 export default function Defender() {
+
     const {
         defenderMoney,
         defenderMoves,
         setDefenderMoney,
         attackerHealth,
         setAttackerHealth,
+        attackerMoney
     } = useGame();
+
     const [showPopup, setShowPopup] = useState(false);
     const [selectedMoves, setSelectedMoves] = useState<
         Array<{
@@ -88,6 +92,16 @@ export default function Defender() {
         }, 3000);
     };
 
+    let winner = "";
+    if (defenderMoney > attackerMoney) {
+        winner = "defender";
+    } else if (attackerMoney > defenderMoney) {
+        winner = "attacker";
+    }
+    else {
+        winner = "equal";
+    }
+      
     return (
         <div>
             <div className="bg-gray-700 h-screen w-screen overflow-hidden">
@@ -116,6 +130,9 @@ export default function Defender() {
                                 </div>
                             </div>
                         </CardHeader>
+                        {
+                            <Dial winner={winner}/>
+                        }
                         <CardContent>
                             <div className="flex flex-col gap-2 w-full">
                                 <div className="flex w-full gap-2">

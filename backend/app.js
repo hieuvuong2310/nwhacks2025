@@ -9,6 +9,9 @@ var gameRouter = require('./routes/game');
 
 var app = express();
 
+// games in memory
+app.locals.games = [];
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

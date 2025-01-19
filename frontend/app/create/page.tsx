@@ -2,14 +2,25 @@
 
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
 
 export default function Create() {
     return (
-        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+        <div>
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-                Game code:
+                Pick your side:
             </h1>
+            <div className="flex flex-col gap-4 mt-4">
+                <Link href="/match" className="w-full">
+                    <Button className="bg-custom-red w-full py-6 text-lg">
+                        Attacker
+                    </Button>
+                </Link>
+                <Link href="/match" className="w-full">
+                    <Button className="bg-custom-navy w-full py-6 text-lg">
+                        Defender
+                    </Button>
+                </Link>
+            </div>
         </div>
     );
 }

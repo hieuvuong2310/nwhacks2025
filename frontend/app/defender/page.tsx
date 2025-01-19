@@ -90,7 +90,9 @@ export default function Defender() {
     const handleSubmit = () => {
         // Calculate the gameScore = attackerHealth - defenderHealth
         const gameScore = attackerHealth - defenderHealth;
+
         setScoreHistory(prev => [...prev, gameScore]);
+
 
         // 1) If attackerMoney <= 0 => Defenders win
         if (attackerMoney <= 0) {

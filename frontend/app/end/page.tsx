@@ -1,5 +1,6 @@
 'use client';
 
+
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useGame } from '@/contexts/GameContext';
@@ -31,6 +32,7 @@ ChartJS.register(
 export default function End() {
   const searchParams = useSearchParams();
   const winner = searchParams.get('winner'); // 'attacker' | 'defender' | null
+
 
   // 3) Destructure the scoreHistory from GameContext
   const { scoreHistory } = useGame();
@@ -83,11 +85,13 @@ export default function End() {
 
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center gap-4 bg-gray-800 text-white p-4">
+
       <h1 className="text-3xl font-bold mb-4">
         {winner === 'attacker' && 'Attackers Win!'}
         {winner === 'defender' && 'Defenders Win!'}
         {!winner && 'No Winner Determined'}
       </h1>
+
       
       {/* 7) Render the chart in a container */}
       <div className="bg-white text-black rounded-md p-4 w-full max-w-2xl">
@@ -100,6 +104,7 @@ export default function End() {
           onClick={handleRestart}
           className="mt-4 px-4 py-2 bg-custom-red-dark text-white rounded hover:bg-custom-red"
         >
+
           Restart Game
         </button>
       </Link>

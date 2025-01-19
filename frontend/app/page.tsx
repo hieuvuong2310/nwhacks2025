@@ -1,19 +1,19 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-
+import { TypographyH1 } from '@/components/typography/typography';
 export default function Home() {
     return (
-        <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-                Game of Threats
-            </h1>
-            <div className="flex flex-col space-y-4">
-                <Link href="/create">
-                    <Button>Create a game</Button>
+        <div>
+            <TypographyH1>Get started</TypographyH1>
+            <div className="flex flex-col gap-4 mt-4">
+                <Link href="/create" className="w-full">
+                    <Button className="bg-custom-red w-full py-6 text-lg">
+                        Start Game
+                    </Button>
                 </Link>
-                <Link href="/join">
-                    <Button>Join a game</Button>
-                </Link>
+                <Button className="bg-custom-navy w-full py-6 text-lg">
+                    Exit
+                </Button>
             </div>
         </div>
     );

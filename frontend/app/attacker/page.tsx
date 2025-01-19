@@ -17,6 +17,7 @@ import {
     HoverCardTrigger,
     HoverCardContent,
 } from '@/components/ui/hover-card';
+import Dial from '../../components/Dial'
 
 export default function Attacker() {
     const {
@@ -26,6 +27,7 @@ export default function Attacker() {
         attackerHealth,
         setDefenderHealth,
         defenderHealth,
+        defenderMoney
     } = useGame();
     const [showPopup, setShowPopup] = useState(false);
     const [selectedMoves, setSelectedMoves] = useState<
@@ -110,6 +112,17 @@ export default function Attacker() {
         }
     };
 
+    let winner = "";
+    if (defenderMoney > attackerMoney) {
+        winner = "defender";
+    } else if (attackerMoney > defenderMoney) {
+        winner = "attacker";
+    }
+    else {
+        winner = "equal";
+    }
+
+    const gameScore = attackerHealth - defenderHealth;
     return (
         <div>
             <div className="bg-gray-700 h-screen w-screen overflow-hidden">
@@ -129,6 +142,22 @@ export default function Attacker() {
                         <CardHeader>
                             <div className="flex flex-row gap-5 items-center">
                                 <TypographyH3>
+                                    {
+                                        gameScore > 0
+                                            ? 'Attacker is winning!'
+                                            : gameScore < 0
+                                            ? 'Defender is winning'
+                                            : 'You are tied!'
+                                    }
+                                </TypographyH3>
+                                <div className="bg-custom-red-dark rounded-lg px-2 py-1">
+                                        <p className="text-white">
+                                            {gameScore}
+                                        </p>
+                                </div>
+                            </div>
+                            <div className="flex flex-row gap-5 items-center">
+                                <TypographyH3>
                                     Select a move to attack the bank:
                                 </TypographyH3>
                                 <div className="bg-custom-red-dark rounded-lg px-2 py-1">
@@ -138,6 +167,9 @@ export default function Attacker() {
                                 </div>
                             </div>
                         </CardHeader>
+                        {
+                            <Dial winner={winner}/>
+                        }
                         <CardContent>
                             <div className="flex flex-col gap-2 w-full">
                                 <div className="flex w-full gap-2">

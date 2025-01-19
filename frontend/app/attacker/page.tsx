@@ -130,9 +130,11 @@ export default function Attacker() {
                                 </TypographyH3>
                                 <div className="bg-custom-red-dark rounded-lg px-2 py-1">
                                         <p className="text-white">
-                                            ${gameScore}
+                                            {gameScore}
                                         </p>
                                 </div>
+                            </div>
+                            <div className="flex flex-row gap-5 items-center">
                                 <TypographyH3>
                                     Select a move to attack the bank:
                                 </TypographyH3>

@@ -26,6 +26,7 @@ export default function Defender() {
         defenderMoves,
         setDefenderMoney,
         attackerHealth,
+        defenderHealth,
         setAttackerHealth,
         attackerMoney
     } = useGame();
@@ -101,6 +102,7 @@ export default function Defender() {
     else {
         winner = "equal";
     }
+    const gameScore = attackerHealth - defenderHealth;
       
     return (
         <div>
@@ -119,6 +121,22 @@ export default function Defender() {
                 <div className="absolute inset-0 z-10 flex items-center justify-center mb-80">
                     <Card>
                         <CardHeader>
+                            <div className="flex flex-row gap-5 items-center">
+                                <TypographyH3>
+                                    {
+                                        gameScore > 0
+                                            ? 'Attacker is winning!'
+                                            : gameScore < 0
+                                            ? 'Defender is winning'
+                                            : 'You are tied!'
+                                    }
+                                </TypographyH3>
+                                <div className="bg-custom-blue rounded-lg px-2 py-1">
+                                        <p className="text-white">
+                                            {gameScore}
+                                        </p>
+                                </div>
+                            </div>
                             <div className="flex flex-row gap-5 items-center">
                                 <TypographyH3>
                                     Select a move to defend the bank:

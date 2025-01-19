@@ -18,8 +18,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={`${jersey.variable}`}>
-            <body>{children}</body>
+        <html lang="en" className={`${jersey.variable} font-jersey`}>
+            <body className="min-h-screen flex items-center justify-center">
+                <main className="w-[70%] flex flex-col items-center justify-center gap-4 p-4">
+                    {children}
+                </main>
+            </body>
         </html>
     );
 }

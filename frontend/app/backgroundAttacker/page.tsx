@@ -2,8 +2,8 @@ export default function BackgroundAttacker() {
     return (
         <div className="h-screen flex flex-col">
             <div className="h-screen w-screen flex flex-col m-0 overflow-hidden">
-            <div className="flex-1 bg-gray-700 flex items-center justify-between px-16">
-                {/* <img 
+                <div className="flex-1 bg-gray-700 flex items-center justify-between px-16">
+                    {/* <img 
                     src="https://firebasestorage.googleapis.com/v0/b/personal-web-4022f.firebasestorage.app/o/certi.png?alt=media&token=7f462216-5dbe-42f6-89c2-281e890448f7" 
                     alt="employee of the month" 
                     className="max-w-[550px] h-auto pl-4 rotate-6" 
@@ -13,10 +13,9 @@ export default function BackgroundAttacker() {
                     alt="sticky note" 
                     className="max-w-[150px] h-auto -rotate-12" 
                 /> */}
+                </div>
+                <div className="h-1/3 bg-blackbean"></div>
             </div>
-            <div className="h-1/3 bg-blackbean"></div>
-        </div>
-           
         </div>
     );
 }

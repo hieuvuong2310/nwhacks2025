@@ -27,7 +27,8 @@ export default function Attacker() {
         attackerHealth,
         setDefenderHealth,
         defenderHealth,
-        defenderMoney
+        defenderMoney,
+        setScoreHistory,
     } = useGame();
     const [showPopup, setShowPopup] = useState(false);
     const [selectedMoves, setSelectedMoves] = useState<
@@ -85,6 +86,9 @@ export default function Attacker() {
             const newAttackerMoney = attackerMoney - selectedMove.cost;
             const newDefenderHealth = defenderHealth - selectedMove.power;
             const healthDifference = attackerHealth - newDefenderHealth;
+
+            setScoreHistory((prev) => [...prev, healthDifference]);
+
 
             if (newAttackerMoney <= 0) {
                 // Defenders win

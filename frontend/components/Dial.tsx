@@ -1,6 +1,9 @@
 import React from 'react';
 import dialsContent from "../resources/dialsContent.json";
-function Dial({winner}) {
+interface DialProps {
+    winner: string;
+}
+function Dial({winner}: DialProps) {
     let url = "";
     if (winner == "defender") {
         url = dialsContent['defender']['url'];

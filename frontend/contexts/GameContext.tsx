@@ -21,6 +21,8 @@ interface GameContextType {
     setPowerHistory: (history: number[]) => void;
     defenderMoves: typeof defenderMoves;
     attackerMoves: typeof attackerMoves;
+    scoreHistory: number[];
+    setScoreHistory: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 
@@ -231,6 +233,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
     const [defenderHealth, setDefenderHealth] = useState(100);
     const [moveHistory, setMoveHistory] = useState<MoveEntry[]>([]);
     const [powerHistory, setPowerHistory] = useState<number[]>([]);
+    const [scoreHistory, setScoreHistory] = useState<number[]>([]);
 
     return (
         <GameContext.Provider
@@ -251,6 +254,8 @@ export function GameProvider({ children }: { children: ReactNode }) {
                 setPowerHistory,
                 defenderMoves,
                 attackerMoves,
+                scoreHistory,
+                setScoreHistory,
             }}
         >
             {children}
